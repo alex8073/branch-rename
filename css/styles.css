@@ -1,0 +1,230 @@
+@font-face {
+    font-family: "Roboto-Black";
+    src: url("../fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Medium";
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    height: 572px;
+    width: 788px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.bitmap {
+    height: 216.34px;
+    width: 435px;
+    position: absolute;
+    top: -87px;
+    right: -221px;
+}
+
+.title {
+    font-family: "Roboto-Black";
+    height: 42px;
+    color: #1d1e26;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: 42px;
+    margin-bottom: 61px;
+}
+
+.type-buttons-container {
+    margin-bottom: 18px;
+}
+
+.radio-label {
+    font-family: "Roboto-Medium";
+    color: #1d1e26;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.input-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 72px;
+}
+
+.name {
+    height: 60px;
+    width: 614px;
+    border-radius: 9px 0 0 9px;
+    background-color: #ffffff;
+    box-shadow: 0 18px 60px 0 rgba(73, 78, 92, 0.15);
+    border: none;
+    font-family: "Roboto-Regular";
+    color: #1d1e26;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    padding: 0 24px;
+}
+
+.name--error {
+    border: 1px solid red;
+    animation: 1.2s ease-in-out 0s normal none infinite running
+        trambling-animation;
+}
+
+.input-button {
+    height: 60px;
+    width: 174px;
+    border-radius: 0 9px 9px 0;
+    background-color: #fcd600;
+    color: #1d1e26;
+    font-family: "Roboto-Bold";
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.input-button:hover {
+    background-color: #f0cc02;
+    transition: 0.3s;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+}
+
+.magic-img--hidden {
+    display: none;
+}
+
+.result-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+}
+
+.result-wrapper--hidden {
+    display: none;
+}
+
+.result-title {
+    color: #1d1e26;
+    font-family: "Roboto-Medium";
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.result-input-wrapper {
+    height: 60px;
+    width: 788px;
+    border-radius: 9px;
+    display: flex;
+}
+
+.result-input {
+    height: 60px;
+    width: 614px;
+    border-radius: 9px 0 0 9px;
+    background-color: #f5f6fa;
+    border: none;
+    font-family: "Roboto-Regular";
+    color: #1d1e26;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    padding: 0 24px;
+    border-right: 1px solid #dfdfe4;
+}
+
+.result-input-button {
+    height: 60px;
+    width: 174px;
+    border-radius: 0 9px 9px 0;
+    background-color: #f5f6fa;
+    color: #1d1e26;
+    font-family: "Roboto-Bold";
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.result-input-button:hover {
+    background-color: #dfdfe4;
+    transition: 0.3s;
+}
+
+.copy {
+    margin-left: 25px;
+}
+
+.copy::before {
+    position: absolute;
+    content: "";
+    width: 18px;
+    height: 18px;
+    transform: translateX(-25px);
+    background-image: url("../img/Combined-Shape.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.copy--success {
+    margin-left: 25px;
+}
+
+.copy--success::before {
+    position: absolute;
+    content: "";
+    top: 15px;
+    width: 28px;
+    height: 28px;
+    transform: translateX(-25px);
+    background-image: url("../img/success.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@keyframes trambling-animation {
+    0%,
+    50%,
+    100% {
+        transform: rotate(0deg);
+    }
+    10%,
+    30% {
+        transform: rotate(-10deg);
+    }
+    20%,
+    40% {
+        transform: rotate(10deg);
+    }
+}
