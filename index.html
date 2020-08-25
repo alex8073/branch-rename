@@ -8,12 +8,16 @@
         };
         const convertValue = () => {
             const type = document.getElementById("type").value;
-            const branchName = document
-                .getElementById("name")
-                .value.replace(/[^a-zа-яА-Я0-9\s]/gi, "")
-                .split(" ")
-                .join("_");
-            writeResult(type + branchName);
+            const originalName = document.getElementById("name").value;
+            const id = originalName.split(" ")[0];
+            const parsedName =
+                id +
+                originalName
+                    .replace(id, "")
+                    .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
+                    .split(" ")
+                    .join("_");
+            writeResult(type + parsedName);
         };
     </script>
     <body>
