@@ -1,57 +1,72 @@
 <html>
     <head>
         <title>Просто я ленив</title>
+        <link rel="stylesheet" type="text/css" href="./css/styles.css" />
     </head>
-    <script>
-        const playAudio = () => {
-            const audio = document.getElementById("sound");
-            audio.play();
-        };
-
-        const showImage = async () => {
-            document.getElementById("result").innerHTML =
-                '<img src="./tenor.gif" />';
-            playAudio();
-            const promise = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    document.getElementById("result").innerHTML = "";
-                    resolve(true);
-                }, 2000);
-            });
-            return promise;
-        };
-        const writeResult = (result) => {
-            document.getElementById("result").innerHTML = result;
-        };
-        const convertValue = async () => {
-            const type = document.getElementById("type").value;
-            const originalName = document.getElementById("name").value;
-            if (originalName) {
-                const id = originalName.split(" ")[0];
-                const parsedName =
-                    id +
-                    originalName
-                        .replace(id, "")
-                        .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
-                        .split(" ")
-                        .join("_");
-                await showImage();
-                writeResult(type + parsedName);
-            }
-        };
-    </script>
+    <script src="./js/functions.js"></script>
     <body>
-        <audio src="./apihost.ru_voice.mp3" id="sound"></audio>
-        <h1>Просто я очень ленив</h1>
-
-        <select id="type">
-            <option value="feature/" selected>
-                Feature
-            </option>
-            <option value="hotfix/">HotFix</option>
-        </select>
-        <input id="name" />
-        <button onClick="convertValue();">Магия, блеат!</button>
-        <p id="result"></p>
+        <audio src="./audio/apihost.ru_voice.mp3" id="sound"></audio>
+        <div class="wrapper">
+            <img src="./img/Bitmap.png" class="bitmap" />
+            <h1 class="title">Просто я очень ленив...</h1>
+            <form class="type-buttons-container" id="type-buttons-container">
+                <input
+                    type="radio"
+                    value="feature/"
+                    checked="checked"
+                    name="branchType"
+                    id="feature-radio"
+                />
+                <label for="feature-radio" class="radio-label">Feature</label>
+                <input
+                    type="radio"
+                    value="hotfix/"
+                    name="branchType"
+                    id="hotfix-radio"
+                />
+                <label for="hotfix-radio" class="radio-label">HotFix</label>
+            </form>
+            <div class="input-wrapper">
+                <input
+                    id="name"
+                    placeholder="Скорми мне название ветки..."
+                    class="name"
+                />
+                <div class="input-button" onClick="convertValue();">
+                    Магия, блеат!
+                </div>
+            </div>
+            <div id="root">
+                <img
+                    src="./img/tenor.gif"
+                    id="magic-img"
+                    class="magic-img--hidden"
+                />
+                <div
+                    id="result-wrapper"
+                    class="result-wrapper result-wrapper--hidden"
+                >
+                    <h2 class="result-title">
+                        Ого, так вот это как, неплохо бы запомнить:
+                    </h2>
+                    <div class="result-input-wrapper">
+                        <input
+                            type="text"
+                            class="result-input"
+                            disabled="disabled"
+                            id="result-input"
+                        />
+                        <div
+                            class="result-input-button"
+                            onClick="copyToClipboard();"
+                        >
+                            <span id="copy-button" class="copy">
+                                Копировать
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
