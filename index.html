@@ -3,9 +3,17 @@
         <title>Просто я ленив</title>
     </head>
     <script>
+        const playAudio = () => {
+            const source = "./apihost.ru_voice.mp3";
+            const audio = new Audio();
+            audio.src = source;
+            audio.play();
+        };
+
         const showImage = async () => {
             document.getElementById("result").innerHTML =
                 '<img src="./tenor.gif" />';
+            playAudio();
             const promise = new Promise((resolve, reject) => {
                 setTimeout(() => {
                     document.getElementById("result").innerHTML = "";
