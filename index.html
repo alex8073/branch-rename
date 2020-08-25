@@ -3,10 +3,21 @@
         <title>Просто я ленив</title>
     </head>
     <script>
+        const showImage = async () => {
+            document.getElementById("result").innerHTML =
+                '<img src="./tenor.gif" />';
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    document.getElementById("result").innerHTML = "";
+                    resolve(true);
+                }, 2000);
+            });
+            return promise;
+        };
         const writeResult = (result) => {
             document.getElementById("result").innerHTML = result;
         };
-        const convertValue = () => {
+        const convertValue = async () => {
             const type = document.getElementById("type").value;
             const originalName = document.getElementById("name").value;
             const id = originalName.split(" ")[0];
@@ -17,6 +28,7 @@
                     .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
                     .split(" ")
                     .join("_");
+            await showImage();
             writeResult(type + parsedName);
         };
     </script>
@@ -32,6 +44,6 @@
         <input id="name" />
         <button onClick="convertValue();">Магия, блеат!</button>
         <h2>Лови, лентяй!</h2>
-        <p id="result"></p>
+        <div id="result"></div>
     </body>
 </html>
