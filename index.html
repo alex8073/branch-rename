@@ -26,16 +26,18 @@
         const convertValue = async () => {
             const type = document.getElementById("type").value;
             const originalName = document.getElementById("name").value;
-            const id = originalName.split(" ")[0];
-            const parsedName =
-                id +
-                originalName
-                    .replace(id, "")
-                    .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
-                    .split(" ")
-                    .join("_");
-            await showImage();
-            writeResult(type + parsedName);
+            if (originalName) {
+                const id = originalName.split(" ")[0];
+                const parsedName =
+                    id +
+                    originalName
+                        .replace(id, "")
+                        .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
+                        .split(" ")
+                        .join("_");
+                await showImage();
+                writeResult(type + parsedName);
+            }
         };
     </script>
     <body>
@@ -50,7 +52,6 @@
         </select>
         <input id="name" />
         <button onClick="convertValue();">Магия, блеат!</button>
-        <h2>Лови, лентяй!</h2>
-        <div id="result"></div>
+        <p id="result"></p>
     </body>
 </html>
