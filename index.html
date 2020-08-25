@@ -4,9 +4,7 @@
     </head>
     <script>
         const playAudio = () => {
-            const source = "./apihost.ru_voice.mp3";
-            const audio = new Audio();
-            audio.src = source;
+            const audio = document.getElementById("sound");
             audio.play();
         };
 
@@ -41,6 +39,7 @@
         };
     </script>
     <body>
+        <audio src="./apihost.ru_voice.mp3" id="sound"></audio>
         <h1>Просто я очень ленив</h1>
 
         <select id="type">
