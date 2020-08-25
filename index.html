@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Просто я ленив</title>
+    </head>
+    <script>
+        const writeResult = (result) => {
+            document.getElementById("result").innerHTML = result;
+        };
+        const convertValue = () => {
+            const type = document.getElementById("type").value;
+            const branchName = document
+                .getElementById("name")
+                .value.replace(/[^a-zа-яА-Я0-9\s]/gi, "")
+                .split(" ")
+                .join("_");
+            writeResult(type + branchName);
+        };
+    </script>
+    <body>
+        <h1>Просто я очень ленив</h1>
+
+        <select id="type">
+            <option value="feature/" selected>
+                Feature
+            </option>
+            <option value="hotfix/">HotFix</option>
+        </select>
+        <input id="name" />
+        <button onClick="convertValue();">Магия, блеат!</button>
+        <h2>Лови, лентяй!</h2>
+        <p id="result"></p>
+    </body>
+</html>
