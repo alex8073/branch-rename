@@ -29,12 +29,12 @@ const showResult = (result) => {
 };
 
 const convertValue = async () => {
-    addClassToElement("result-wrapper", "result-wrapper--hidden");
     const type = document.getElementById("type-buttons-container").elements[
         "branchType"
     ].value;
     const originalName = document.getElementById("name").value;
     if (originalName) {
+        addClassToElement("result-wrapper", "result-wrapper--hidden");
         const id = originalName.split(" ")[0];
         const parsedName =
             id +
