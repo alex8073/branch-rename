@@ -37,10 +37,9 @@ const convertValue = async () => {
         addClassToElement("result-wrapper", "result-wrapper--hidden");
         const id = originalName.split(" ")[0];
         const parsedName =
-            id +
-            originalName
-                .replace(id, "")
-                .replace(/[^a-zа-яА-Я0-9\s]/gi, "")
+            rus2lat(id) +
+            rus2lat(originalName.replace(id, ""))
+                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
                 .split(" ")
                 .join("_");
         await showImage();
@@ -72,4 +71,51 @@ const copyToClipboard = () => {
         removeClassFromElement("copy-button", "copy--success");
         addClassToElement("copy-button", "copy");
     }, 3000);
+};
+
+const rus2lat = (str) => {
+    var ru = {
+            а: "a",
+            б: "b",
+            в: "v",
+            г: "g",
+            д: "d",
+            е: "e",
+            ё: "e",
+            ж: "j",
+            з: "z",
+            и: "i",
+            к: "k",
+            л: "l",
+            м: "m",
+            н: "n",
+            о: "o",
+            п: "p",
+            р: "r",
+            с: "s",
+            т: "t",
+            у: "u",
+            ф: "f",
+            х: "h",
+            ц: "c",
+            ч: "ch",
+            ш: "sh",
+            щ: "shch",
+            ы: "y",
+            э: "e",
+            ю: "u",
+            я: "ya",
+        },
+        nStr = [];
+
+    str = str.replace(/[ъь]+/g, "").replace(/й/g, "i");
+
+    for (var i = 0; i < str.length; ++i) {
+        nStr.push(
+            ru[str[i]] ||
+                (ru[str[i].toLowerCase()] == undefined && str[i]) ||
+                ru[str[i].toLowerCase()].toUpperCase(),
+        );
+    }
+    return nStr.join("");
 };
