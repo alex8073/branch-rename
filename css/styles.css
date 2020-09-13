@@ -214,6 +214,19 @@ body {
     background-repeat: no-repeat;
 }
 
+.container {
+    font-family: "Roboto-Medium";
+    color: #1d1e26;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    margin-bottom: 10px;
+}
+
+.form-element:hover {
+    cursor: pointer;
+}
+
 @keyframes trambling-animation {
     0%,
     50%,

@@ -10,21 +10,49 @@
             <img src="./img/Bitmap.png" class="bitmap" />
             <h1 class="title">Просто я очень ленив...</h1>
             <form class="type-buttons-container" id="type-buttons-container">
-                <input
-                    type="radio"
-                    value="feature/"
-                    checked="checked"
-                    name="branchType"
-                    id="feature-radio"
-                />
-                <label for="feature-radio" class="radio-label">Feature</label>
-                <input
-                    type="radio"
-                    value="hotfix/"
-                    name="branchType"
-                    id="hotfix-radio"
-                />
-                <label for="hotfix-radio" class="radio-label">HotFix</label>
+                <div class="container">
+                    Тип ветки:
+                    <input
+                        type="radio"
+                        value="feature/"
+                        checked="checked"
+                        name="branchType"
+                        class="form-element"
+                        id="feature-radio"
+                    />
+                    <label for="feature-radio" class="radio-label"
+                        >Feature</label
+                    >
+                    <input
+                        type="radio"
+                        value="hotfix/"
+                        name="branchType"
+                        id="hotfix-radio"
+                        class="form-element"
+                    />
+                    <label for="hotfix-radio" class="radio-label">HotFix</label>
+                    <input
+                        type="radio"
+                        value="global/"
+                        name="branchType"
+                        id="global-radio"
+                        class="form-element"
+                    />
+                    <label for="global-radio" class="radio-label">Global</label>
+                </div>
+                <div class="container">
+                    <label for="translit" class="radio-label"
+                        >Транслировать название</label
+                    >
+                    <input
+                        type="checkbox"
+                        value="en"
+                        checked="checked"
+                        name="language"
+                        id="translit"
+                        class="form-element"
+                    />
+                </div>
             </form>
             <div class="input-wrapper">
                 <input

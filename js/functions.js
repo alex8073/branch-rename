@@ -28,6 +28,10 @@ const showResult = (result) => {
     document.getElementById("result-input").value = result;
 };
 
+const getTranslit = () => {
+    return document.getElementById("translit").checked;
+};
+
 const convertValue = async () => {
     const type = document.getElementById("type-buttons-container").elements[
         "branchType"
@@ -36,14 +40,27 @@ const convertValue = async () => {
     if (originalName) {
         addClassToElement("result-wrapper", "result-wrapper--hidden");
         const id = originalName.split(" ")[0];
-        const parsedName =
-            rus2lat(id) +
-            rus2lat(originalName.replace(id, ""))
-                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                .split(" ")
-                .join("_");
-        await showImage();
-        showResult(type + parsedName);
+        const translit = getTranslit();
+        if (!translit) {
+            const parsedName =
+                id +
+                originalName
+                    .replace(id, "")
+                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                    .split(" ")
+                    .join("_");
+            await showImage();
+            showResult(type + parsedName);
+        } else {
+            const parsedName =
+                rus2lat(id) +
+                rus2lat(originalName.replace(id, ""))
+                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                    .split(" ")
+                    .join("_");
+            await showImage();
+            showResult(type + parsedName);
+        }
     } else {
         addClassToElement("name", "name--error");
         setTimeout(() => {
