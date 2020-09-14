@@ -78,14 +78,18 @@ const convertValue = async () => {
                 const { data } = response;
                 if (data) {
                     const parsedName =
-                        id +
-                        "_" +
+                        `${id ? id + "_" : id}` +
                         data
                             .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
                             .split(" ")
                             .join("_");
                     await showImage();
                     showResult(type + parsedName);
+                } else {
+                    addClassToElement("name", "name--error");
+                    setTimeout(() => {
+                        removeClassFromElement("name", "name--error");
+                    }, 700);
                 }
                 break;
             }
