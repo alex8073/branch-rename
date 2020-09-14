@@ -28,8 +28,22 @@ const showResult = (result) => {
     document.getElementById("result-input").value = result;
 };
 
-const getTranslit = () => {
-    return document.getElementById("translit").checked;
+const getLanguage = () => {
+    return document.getElementById("type-buttons-container").elements[
+        "language"
+    ].value;
+};
+
+const sendRequest = async (url, data) => {
+    const response = await fetch(url, {
+        body: JSON.stringify(data),
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    return response.json();
 };
 
 const convertValue = async () => {
@@ -39,27 +53,54 @@ const convertValue = async () => {
     const originalName = document.getElementById("name").value;
     if (originalName) {
         addClassToElement("result-wrapper", "result-wrapper--hidden");
-        const id = originalName.split(" ")[0];
-        const translit = getTranslit();
-        if (!translit) {
-            const parsedName =
-                id +
-                originalName
-                    .replace(id, "")
-                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                    .split(" ")
-                    .join("_");
-            await showImage();
-            showResult(type + parsedName);
-        } else {
-            const parsedName =
-                rus2lat(id) +
-                rus2lat(originalName.replace(id, ""))
-                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                    .split(" ")
-                    .join("_");
-            await showImage();
-            showResult(type + parsedName);
+        let id = "";
+        if (originalName.split(" ")[0].includes("-")) {
+            id = originalName.split(" ")[0];
+        }
+        switch (getLanguage()) {
+            case "translit": {
+                const parsedName =
+                    rus2lat(id) +
+                    rus2lat(originalName.replace(id, ""))
+                        .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                        .split(" ")
+                        .join("_");
+                await showImage();
+                showResult(type + parsedName);
+                break;
+            }
+            case "translate": {
+                const name = originalName.replace(id, "");
+                const response = await sendRequest(
+                    "http://dev-sc-api.ti-service.by/api/v1/translate",
+                    { data: name },
+                );
+                const { data } = response;
+                if (data) {
+                    const parsedName =
+                        id +
+                        "_" +
+                        data
+                            .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                            .split(" ")
+                            .join("_");
+                    await showImage();
+                    showResult(type + parsedName);
+                }
+                break;
+            }
+            default: {
+                const parsedName =
+                    id +
+                    originalName
+                        .replace(id, "")
+                        .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                        .split(" ")
+                        .join("_");
+                await showImage();
+                showResult(type + parsedName);
+                break;
+            }
         }
     } else {
         addClassToElement("name", "name--error");

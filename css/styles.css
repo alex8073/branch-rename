@@ -36,7 +36,6 @@ body {
     height: 216.34px;
     width: 435px;
     position: absolute;
-    top: -87px;
     right: -221px;
 }
 
@@ -221,6 +220,12 @@ body {
     letter-spacing: 0;
     line-height: 21px;
     margin-bottom: 10px;
+    display: flex;
+}
+
+.container--values {
+    display: flex;
+    flex-direction: column;
 }
 
 .form-element:hover {

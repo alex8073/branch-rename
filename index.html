@@ -41,17 +41,47 @@
                     <label for="global-radio" class="radio-label">Global</label>
                 </div>
                 <div class="container">
-                    <label for="translit" class="radio-label"
-                        >Транслировать название</label
-                    >
-                    <input
-                        type="checkbox"
-                        value="en"
-                        checked="checked"
-                        name="language"
-                        id="translit"
-                        class="form-element"
-                    />
+                    Язык вывода:
+                    <div class="container--values">
+                        <div class="value-wrapper">
+                            <input
+                                type="radio"
+                                value="default"
+                                name="language"
+                                checked="checked"
+                                id="default-radio"
+                                class="form-element"
+                            />
+                            <label for="default-radio" class="radio-label"
+                                >Без изменений</label
+                            >
+                        </div>
+                        <div class="value-wrapper">
+                            <input
+                                type="radio"
+                                value="translit"
+                                name="language"
+                                id="translit-radio"
+                                class="form-element"
+                            />
+                            <label for="translit-radio" class="radio-label"
+                                >Транслитерировать название (ru -> en)</label
+                            >
+                        </div>
+
+                        <div class="value-wrapper">
+                            <input
+                                type="radio"
+                                value="translate"
+                                name="language"
+                                id="translate-radio"
+                                class="form-element"
+                            />
+                            <label for="translate-radio" class="radio-label"
+                                >Перевести (ru -> en)</label
+                            >
+                        </div>
+                    </div>
                 </div>
             </form>
             <div class="input-wrapper">
