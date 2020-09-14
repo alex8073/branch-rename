@@ -59,6 +59,7 @@ body {
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
@@ -87,6 +88,15 @@ body {
     border: 1px solid red;
     animation: 1.2s ease-in-out 0s normal none infinite running
         trambling-animation;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .input-button {
@@ -221,6 +231,11 @@ body {
     line-height: 21px;
     margin-bottom: 10px;
     display: flex;
+}
+
+.value-wrapper {
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .container--values {

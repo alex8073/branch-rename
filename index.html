@@ -90,7 +90,13 @@
                     placeholder="Скорми мне название ветки..."
                     class="name"
                 />
-                <div class="input-button" onClick="convertValue();">Магия!</div>
+                <div
+                    class="input-button noselect"
+                    id="submit-button"
+                    onClick="convertValue();"
+                >
+                    Магия!
+                </div>
             </div>
             <div id="root">
                 <img
@@ -132,7 +138,7 @@
                             class="result-input-button"
                             onClick="copyToClipboard();"
                         >
-                            <span id="copy-button" class="copy">
+                            <span id="copy-button" class="copy noselect">
                                 Копировать
                             </span>
                         </div>
