@@ -72,7 +72,7 @@ const convertValue = async () => {
             case "translate": {
                 const name = originalName.replace(id, "");
                 const response = await sendRequest(
-                    "http://dev-sc-api.ti-service.by/api/v1/translate",
+                    "https://dev-sc-api.ti-service.by/api/v1/translate",
                     { data: name },
                 );
                 const { data } = response;
