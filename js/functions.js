@@ -7,16 +7,21 @@ const addClassToElement = (element, className) => {
     document.getElementById(element).classList.add(className);
 };
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const removeClassFromElement = (element, className) => {
     document.getElementById(element).classList.remove(className);
 };
 
 const showImage = async () => {
-    removeClassFromElement("magic-img", "magic-img--hidden");
+    const imgNumber = getRandomInt(1, 3);
+    removeClassFromElement(`magic-img-${imgNumber}`, "magic-img--hidden");
     playAudio();
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
-            addClassToElement("magic-img", "magic-img--hidden");
+            addClassToElement(`magic-img-${imgNumber}`, "magic-img--hidden");
             resolve(true);
         }, 2000);
     });
