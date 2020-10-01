@@ -15,19 +15,17 @@ const removeClassFromElement = (element, className) => {
     document.getElementById(element).classList.remove(className);
 };
 
-const showImage = async () => {
+const showImage = () => {
     const imgNumber = getRandomInt(1, 3);
     removeClassFromElement(`magic-img-${imgNumber}`, "magic-img--hidden");
     addClassToElement(`magic-img-${imgNumber}`, "magic-img");
     playAudio();
-    const promise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            addClassToElement(`magic-img-${imgNumber}`, "magic-img--hidden");
-            removeClassFromElement(`magic-img-${imgNumber}`, "magic-img");
-            resolve(true);
-        }, 2000);
-    });
-    return promise;
+    return imgNumber;
+};
+
+const hideImage = (imgNumber) => {
+    addClassToElement(`magic-img-${imgNumber}`, "magic-img--hidden");
+    removeClassFromElement(`magic-img-${imgNumber}`, "magic-img");
 };
 
 const showResult = (result) => {
@@ -65,53 +63,74 @@ const convertValue = async () => {
             if (originalName.split(" ")[0].includes("-")) {
                 id = originalName.split(" ")[0];
             }
-            await showImage();
+            let promise;
+            const img = showImage();
             switch (getLanguage()) {
                 case "translit": {
-                    const parsedName =
-                        rus2lat(id) +
-                        rus2lat(originalName.replace(id, ""))
-                            .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                            .split(" ")
-                            .join("_");
-                    showResult(type + parsedName);
+                    promise = new Promise(async (resolve, reject) => {
+                        const parsedName =
+                            rus2lat(id) +
+                            rus2lat(originalName.replace(id, ""))
+                                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                                .split(" ")
+                                .join("_");
+                        setTimeout(() => {
+                            return resolve(parsedName);
+                        }, 2000);
+                    });
                     break;
                 }
                 case "translate": {
+                    const timer = new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            return resolve(true);
+                        }, 2000);
+                    });
                     const name = originalName.replace(id, "");
                     const response = await sendRequest(
                         "https://dev-sc-api.ti-service.by/api/v1/translate",
                         { data: name },
                     );
                     const { data } = response;
-                    if (data) {
-                        const parsedName =
-                            `${id ? id + "_" : id}` +
-                            data
-                                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                                .split(" ")
-                                .join("_");
-                        showResult(type + parsedName);
-                    } else {
-                        addClassToElement("name", "name--error");
-                        setTimeout(() => {
-                            removeClassFromElement("name", "name--error");
-                        }, 700);
-                    }
+                    promise = timer.then((result) => {
+                        console.log(result);
+                        if (data && result) {
+                            const parsedName =
+                                `${id ? id + "_" : id}` +
+                                data
+                                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                                    .split(" ")
+                                    .join("_");
+                            return parsedName;
+                        } else {
+                            addClassToElement("name", "name--error");
+                            setTimeout(() => {
+                                removeClassFromElement("name", "name--error");
+                            }, 700);
+                        }
+                    });
+
                     break;
                 }
                 default: {
-                    const parsedName =
-                        id +
-                        originalName
-                            .replace(id, "")
-                            .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                            .split(" ")
-                            .join("_");
-                    showResult(type + parsedName);
+                    promise = new Promise((resolve, reject) => {
+                        const parsedName =
+                            id +
+                            originalName
+                                .replace(id, "")
+                                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                                .split(" ")
+                                .join("_");
+                        setTimeout(() => {
+                            return resolve(parsedName);
+                        }, 2000);
+                    });
                     break;
                 }
             }
+            const name = await promise;
+            hideImage(img);
+            showResult(type + name);
         } else {
             addClassToElement("name", "name--error");
             setTimeout(() => {
