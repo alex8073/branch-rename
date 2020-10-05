@@ -71,7 +71,7 @@ const convertValue = async () => {
                         const parsedName =
                             rus2lat(id) +
                             rus2lat(originalName.replace(id, ""))
-                                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
+                                .replace(/[^A-Za-zа-яА-Я0-9ёЁ\s]/gi, "")
                                 .split(" ")
                                 .join("_");
                         setTimeout(() => {
