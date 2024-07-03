@@ -9,7 +9,7 @@
 }
 
 @font-face {
-    font-family: "Roboto-Regular";
+    font-family: "Roboto-Regular", sans-serif;
     src: url("../fonts/Roboto-Regular.ttf");
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 .title {
-    font-family: "Roboto-Black";
+    font-family: "Roboto-Black", sans-serif;
     height: 42px;
     color: #1d1e26;
     font-size: 36px;
@@ -54,7 +54,7 @@ body {
 }
 
 .radio-label {
-    font-family: "Roboto-Regular";
+    font-family: "Roboto-Regular", sans-serif;
     color: #1d1e26;
     font-size: 18px;
     letter-spacing: 0;
@@ -69,6 +69,10 @@ body {
     margin-bottom: 72px;
 }
 
+.task-link-wrapper {
+    margin-bottom: 30px;
+}
+
 .name {
     height: 60px;
     width: 614px;
@@ -76,12 +80,30 @@ body {
     background-color: #ffffff;
     box-shadow: 0 18px 60px 0 rgba(73, 78, 92, 0.15);
     border: none;
-    font-family: "Roboto-Regular";
+    font-family: "Roboto-Regular", sans-serif;
     color: #1d1e26;
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
     padding: 0 24px;
+}
+
+.task-link {
+    width: 788px;
+    border-radius: 9px;
+}
+
+.result-length {
+    font-family: "Roboto-Regular", sans-serif;
+    margin-left: 8px;
+}
+
+.result-length.valid {
+    color: mediumseagreen;
+}
+
+.result-length.invalid {
+    color: red;
 }
 
 .name--error {
@@ -105,7 +127,7 @@ body {
     border-radius: 0 9px 9px 0;
     background-color: #fcd600;
     color: #1d1e26;
-    font-family: "Roboto-Bold";
+    font-family: "Roboto-Bold", sans-serif;
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
@@ -142,7 +164,7 @@ body {
 
 .result-title {
     color: #1d1e26;
-    font-family: "Roboto-Medium";
+    font-family: "Roboto-Medium", sans-serif;
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
@@ -161,7 +183,7 @@ body {
     border-radius: 9px 0 0 9px;
     background-color: #f5f6fa;
     border: none;
-    font-family: "Roboto-Regular";
+    font-family: "Roboto-Regular", sans-serif;
     color: #1d1e26;
     font-size: 18px;
     letter-spacing: 0;
@@ -176,7 +198,7 @@ body {
     border-radius: 0 9px 9px 0;
     background-color: #f5f6fa;
     color: #1d1e26;
-    font-family: "Roboto-Bold";
+    font-family: "Roboto-Bold", sans-serif;
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
@@ -224,7 +246,7 @@ body {
 }
 
 .container {
-    font-family: "Roboto-Medium";
+    font-family: "Roboto-Medium", sans-serif;
     color: #1d1e26;
     font-size: 18px;
     letter-spacing: 0;

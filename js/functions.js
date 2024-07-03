@@ -28,8 +28,10 @@ const hideImage = (imgNumber) => {
     removeClassFromElement(`magic-img-${imgNumber}`, "magic-img");
 };
 
-const showResult = (result) => {
+const showResult = (result, resultLength) => {
     removeClassFromElement("result-wrapper", "result-wrapper--hidden");
+    document.getElementById("result-length").innerText = resultLength;
+    addClassToElement("result-length", resultLength <= 40 ? "valid" : "invalid");
     document.getElementById("result-input").value = result;
 };
 
@@ -52,10 +54,15 @@ const sendRequest = async (url, data) => {
 };
 
 const convertValue = async () => {
+    removeClassFromElement("result-length", "valid");
+    removeClassFromElement("result-length", "invalid");
     const type = document.getElementById("type-buttons-container").elements[
         "branchType"
     ].value;
     const originalName = document.getElementById("name").value;
+    const taskLink = document.getElementById("task-link").value;
+    const taskTitle = taskLink.split("/").pop();
+
     if (!document.getElementsByClassName("magic-img").length) {
         if (originalName) {
             addClassToElement("result-wrapper", "result-wrapper--hidden");
@@ -130,7 +137,13 @@ const convertValue = async () => {
             }
             const name = await promise;
             hideImage(img);
-            showResult(type + name);
+            let result = "";
+            if(type === "hotfix/") {
+                result = "feature/hotfix-" + name;
+            } else {
+                result = type + taskTitle + "-" + name;
+            }
+            showResult(result, result.length);
         } else {
             addClassToElement("name", "name--error");
             setTimeout(() => {

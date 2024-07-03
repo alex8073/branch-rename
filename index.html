@@ -16,14 +16,36 @@
                         <div class="value-wrapper">
                             <input
                                 type="radio"
+                                value="feature/"
+                                name="branchType"
+                                class="form-element"
+                                id="feature-radio"
+                                checked="checked"
+                            />
+                            <label for="feature-radio" class="radio-label"
+                                >feature</label
+                            >
+                        </div>
+                        <div class="value-wrapper">
+                            <input
+                                type="radio"
+                                value="hotfix/"
+                                name="branchType"
+                                id="hotfix-radio"
+                                class="form-element"
+                            />
+                            <label for="hotfix-radio" class="radio-label">hotfix</label>
+                        </div>
+                        <div class="value-wrapper">
+                            <input
+                                type="radio"
                                 value="task/"
                                 name="branchType"
                                 class="form-element"
                                 id="task-radio"
-                                checked="checked"
                             />
                             <label for="task-radio" class="radio-label"
-                                >Task</label
+                                >task</label
                             >
                         </div>
                         <div class="value-wrapper">
@@ -35,19 +57,7 @@
                                 id="story-radio"
                             />
                             <label for="story-radio" class="radio-label"
-                                >Story</label
-                            >
-                        </div>
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="feature/"
-                                name="branchType"
-                                class="form-element"
-                                id="feature-radio"
-                            />
-                            <label for="feature-radio" class="radio-label"
-                                >Feature</label
+                                >story</label
                             >
                         </div>
                         <div class="value-wrapper">
@@ -58,17 +68,7 @@
                                 id="global-radio"
                                 class="form-element"
                             />
-                            <label for="global-radio" class="radio-label">Global</label>
-                        </div>
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="hotfix/"
-                                name="branchType"
-                                id="hotfix-radio"
-                                class="form-element"
-                            />
-                            <label for="hotfix-radio" class="radio-label">HotFix</label>
+                            <label for="global-radio" class="radio-label">global</label>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                                 class="form-element"
                             />
                             <label for="default-radio" class="radio-label"
-                                >Без изменений</label
+                                >без изменений</label
                             >
                         </div>
                         <div class="value-wrapper">
@@ -97,7 +97,7 @@
                                 class="form-element"
                             />
                             <label for="translit-radio" class="radio-label"
-                                >Транслитерировать название (ru -> en)</label
+                                >транслитерировать (ru -> en)</label
                             >
                         </div>
 
@@ -110,12 +110,19 @@
                                 class="form-element"
                             />
                             <label for="translate-radio" class="radio-label"
-                                >Перевести (ru -> en)</label
+                                >перевести (ru -> en)</label
                             >
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="task-link-wrapper">
+                <input
+                    id="task-link"
+                    placeholder="Ссылка на задачу"
+                    class="name task-link"
+                />
+            </div>
             <div class="input-wrapper">
                 <input
                     id="name"
@@ -159,6 +166,12 @@
                     <h2 class="result-title">
                         ...поэтому использую магию вне Хогвартса:
                     </h2>
+
+                    <div class="container">
+                        Длина ветки (до 40 символов):
+                        <div id="result-length" class="result-length"></div>
+                    </div>
+
                     <div class="result-input-wrapper">
                         <input
                             type="text"
