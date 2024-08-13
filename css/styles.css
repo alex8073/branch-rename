@@ -22,14 +22,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 .wrapper {
-    height: 572px;
-    width: 788px;
     display: flex;
     flex-direction: column;
     position: relative;
+    min-height: 840px;
 }
 
 .bitmap {
@@ -41,12 +41,10 @@ body {
 
 .title {
     font-family: "Roboto-Black", sans-serif;
-    height: 42px;
     color: #1d1e26;
     font-size: 36px;
-    letter-spacing: 0;
-    line-height: 42px;
-    margin-bottom: 61px;
+    margin-top: 0;
+    margin-bottom: 40px;
 }
 
 .type-buttons-container {
@@ -66,7 +64,7 @@ body {
 .input-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 72px;
+    margin-bottom: 40px;
 }
 
 .task-link-wrapper {
@@ -251,7 +249,7 @@ body {
     font-size: 18px;
     letter-spacing: 0;
     line-height: 21px;
-    margin-bottom: 10px;
+    margin-top: 15px;
     display: flex;
 }
 
