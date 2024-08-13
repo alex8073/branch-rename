@@ -29,7 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 840px;
+    min-height: 756px;
 }
 
 .bitmap {
