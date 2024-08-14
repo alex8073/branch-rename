@@ -1,198 +1,202 @@
 <html lang="ru">
-    <head>
-        <title>Просто я ленив</title>
-        <link rel="stylesheet" type="text/css" href="./css/styles.css" />
-    </head>
-    <script src="./js/functions.js"></script>
-    <body>
-        <audio src="./audio/apihost.ru_voice.mp3" id="sound"></audio>
-        <div class="wrapper">
-            <img src="./img/Bitmap.png" class="bitmap" alt=""/>
-            <h1 class="title">Просто я очень ленив...</h1>
-            <form class="type-buttons-container" id="type-buttons-container">
-                <div class="container">
-                    Тип ветки:
-                    <div class="container--values">
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="feature/"
-                                name="branchType"
-                                class="form-element"
-                                id="feature-radio"
-                                checked="checked"
-                            />
-                            <label for="feature-radio" class="radio-label"
-                                >feature</label
-                            >
-                        </div>
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="hotfix/"
-                                name="branchType"
-                                id="hotfix-radio"
-                                class="form-element"
-                            />
-                            <label for="hotfix-radio" class="radio-label">hotfix</label>
-                        </div>
-<!--                        <div class="value-wrapper">-->
-<!--                            <input-->
-<!--                                type="radio"-->
-<!--                                value="task/"-->
-<!--                                name="branchType"-->
-<!--                                class="form-element"-->
-<!--                                id="task-radio"-->
-<!--                            />-->
-<!--                            <label for="task-radio" class="radio-label"-->
-<!--                                >task</label-->
-<!--                            >-->
-<!--                        </div>-->
-<!--                        <div class="value-wrapper">-->
-<!--                            <input-->
-<!--                                type="radio"-->
-<!--                                value="story/"-->
-<!--                                name="branchType"-->
-<!--                                class="form-element"-->
-<!--                                id="story-radio"-->
-<!--                            />-->
-<!--                            <label for="story-radio" class="radio-label"-->
-<!--                                >story</label-->
-<!--                            >-->
-<!--                        </div>-->
-<!--                        <div class="value-wrapper">-->
-<!--                            <input-->
-<!--                                type="radio"-->
-<!--                                value="global/"-->
-<!--                                name="branchType"-->
-<!--                                id="global-radio"-->
-<!--                                class="form-element"-->
-<!--                            />-->
-<!--                            <label for="global-radio" class="radio-label">global</label>-->
-<!--                        </div>-->
-                    </div>
-                </div>
-                <div class="container">
-                    Язык вывода:
-                    <div class="container--values">
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="default"
-                                name="language"
-                                checked="checked"
-                                id="default-radio"
-                                class="form-element"
-                            />
-                            <label for="default-radio" class="radio-label"
-                                >без изменений</label
-                            >
-                        </div>
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="translit"
-                                name="language"
-                                id="translit-radio"
-                                class="form-element"
-                            />
-                            <label for="translit-radio" class="radio-label"
-                                >транслитерировать (ru -> en)</label
-                            >
-                        </div>
-
-                        <div class="value-wrapper">
-                            <input
-                                type="radio"
-                                value="translate"
-                                name="language"
-                                id="translate-radio"
-                                class="form-element"
-                            />
-                            <label for="translate-radio" class="radio-label"
-                                >перевести (ru -> en)</label
-                            >
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="task-link-wrapper">
-                <input
-                    id="task-link"
-                    placeholder="Ссылка на задачу"
-                    class="name task-link"
-                />
+<head>
+    <title>Просто я ленив</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css"/>
+</head>
+<script src="./js/functions.js"></script>
+<body>
+<audio src="./audio/apihost.ru_voice.mp3" id="sound"></audio>
+<div class="wrapper">
+    <img src="./img/Bitmap.png" class="bitmap" alt=""/>
+    <h1 class="title">Просто я очень ленив...</h1>
+    <form class="type-buttons-container" id="type-buttons-container">
+        <div class="container">
+            <div class="container--title">
+                Тип ветки:
             </div>
-            <div class="input-wrapper">
-                <input
-                    id="name"
-                    placeholder="Скорми мне название ветки..."
-                    class="name"
-                />
-                <div
-                    class="input-button noselect"
-                    id="submit-button"
-                    onClick="convertValue();"
-                >
-                    Магия!
+            <div class="container--values">
+                <div class="value-wrapper">
+                    <input
+                            type="radio"
+                            value="feature/"
+                            name="branchType"
+                            class="form-element"
+                            id="feature-radio"
+                            checked="checked"
+                    />
+                    <label for="feature-radio" class="radio-label"
+                    >feature</label
+                    >
                 </div>
+                <div class="value-wrapper">
+                    <input
+                            type="radio"
+                            value="hotfix/"
+                            name="branchType"
+                            id="hotfix-radio"
+                            class="form-element"
+                    />
+                    <label for="hotfix-radio" class="radio-label">hotfix</label>
+                </div>
+                <!--                        <div class="value-wrapper">-->
+                <!--                            <input-->
+                <!--                                type="radio"-->
+                <!--                                value="task/"-->
+                <!--                                name="branchType"-->
+                <!--                                class="form-element"-->
+                <!--                                id="task-radio"-->
+                <!--                            />-->
+                <!--                            <label for="task-radio" class="radio-label"-->
+                <!--                                >task</label-->
+                <!--                            >-->
+                <!--                        </div>-->
+                <!--                        <div class="value-wrapper">-->
+                <!--                            <input-->
+                <!--                                type="radio"-->
+                <!--                                value="story/"-->
+                <!--                                name="branchType"-->
+                <!--                                class="form-element"-->
+                <!--                                id="story-radio"-->
+                <!--                            />-->
+                <!--                            <label for="story-radio" class="radio-label"-->
+                <!--                                >story</label-->
+                <!--                            >-->
+                <!--                        </div>-->
+                <!--                        <div class="value-wrapper">-->
+                <!--                            <input-->
+                <!--                                type="radio"-->
+                <!--                                value="global/"-->
+                <!--                                name="branchType"-->
+                <!--                                id="global-radio"-->
+                <!--                                class="form-element"-->
+                <!--                            />-->
+                <!--                            <label for="global-radio" class="radio-label">global</label>-->
+                <!--                        </div>-->
             </div>
-            <div id="root">
-                <img
-                    src="./img/1.gif"
-                    id="magic-img-1"
-                    class="magic-img--hidden"
-                    width="350"
-                    height="280"
-                    alt=""
-                />
-                <img
-                    src="./img/2.gif"
-                    id="magic-img-2"
-                    class="magic-img--hidden"
-                    width="274"
-                    height="252"
-                    alt=""
-                />
-                <img
-                    src="./img/3.gif"
-                    id="magic-img-3"
-                    width="350"
-                    height="280"
-                    class="magic-img--hidden"
-                    alt=""
-                />
-                <div
-                    id="result-wrapper"
-                    class="result-wrapper result-wrapper--hidden"
-                >
-                    <h2 class="result-title">
-                        ...поэтому использую магию вне Хогвартса:
-                    </h2>
+        </div>
+        <div class="container">
+            <div class="container--title">
+                Язык вывода:
+            </div>
+            <div class="container--values">
+                <div class="value-wrapper">
+                    <input
+                            type="radio"
+                            value="default"
+                            name="language"
+                            checked="checked"
+                            id="default-radio"
+                            class="form-element"
+                    />
+                    <label for="default-radio" class="radio-label"
+                    >без изменений</label
+                    >
+                </div>
+                <div class="value-wrapper">
+                    <input
+                            type="radio"
+                            value="translit"
+                            name="language"
+                            id="translit-radio"
+                            class="form-element"
+                    />
+                    <label for="translit-radio" class="radio-label"
+                    >транслитерировать (ru -> en)</label
+                    >
+                </div>
 
-                    <div class="result-input-wrapper">
-                        <input
-                            type="text"
-                            class="result-input"
-                            disabled="disabled"
-                            id="result-input"
-                        />
-                        <div
-                            class="result-input-button"
-                            onClick="copyToClipboard();"
-                        >
-                            <span id="copy-button" class="copy noselect">
-                                Копировать
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="container">
-                        Длина ветки (до 40 символов):
-                        <div id="result-length" class="result-length"></div>
-                    </div>
+                <div class="value-wrapper">
+                    <input
+                            type="radio"
+                            value="translate"
+                            name="language"
+                            id="translate-radio"
+                            class="form-element"
+                    />
+                    <label for="translate-radio" class="radio-label"
+                    >перевести (ru -> en)</label
+                    >
                 </div>
             </div>
         </div>
-    </body>
+    </form>
+    <div class="task-link-wrapper">
+        <input
+                id="task-link"
+                placeholder="Ссылка на задачу"
+                class="name task-link"
+        />
+    </div>
+    <div class="input-wrapper">
+        <input
+                id="name"
+                placeholder="Скорми мне название ветки..."
+                class="name"
+        />
+        <div
+                class="input-button noselect"
+                id="submit-button"
+                onClick="convertValue();"
+        >
+            Магия!
+        </div>
+    </div>
+    <div id="root">
+        <img
+                src="./img/1.gif"
+                id="magic-img-1"
+                class="magic-img--hidden"
+                width="350"
+                height="280"
+                alt=""
+        />
+        <img
+                src="./img/2.gif"
+                id="magic-img-2"
+                class="magic-img--hidden"
+                width="274"
+                height="252"
+                alt=""
+        />
+        <img
+                src="./img/3.gif"
+                id="magic-img-3"
+                width="350"
+                height="280"
+                class="magic-img--hidden"
+                alt=""
+        />
+        <div
+                id="result-wrapper"
+                class="result-wrapper result-wrapper--hidden"
+        >
+            <h2 class="result-title">
+                ...поэтому использую магию вне Хогвартса:
+            </h2>
+
+            <div class="result-input-wrapper">
+                <input
+                        type="text"
+                        class="result-input"
+                        disabled="disabled"
+                        id="result-input"
+                />
+                <div
+                        class="result-input-button"
+                        onClick="copyToClipboard();"
+                >
+                            <span id="copy-button" class="copy noselect">
+                                Копировать
+                            </span>
+                </div>
+            </div>
+
+            <div class="container">
+                Длина ветки (до 40 символов):
+                <div id="result-length" class="result-length"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

@@ -253,14 +253,18 @@ body {
     display: flex;
 }
 
-.value-wrapper {
-    margin-left: 10px;
-    margin-bottom: 10px;
+.container--title {
+    min-width: 120px;
 }
 
 .container--values {
     display: flex;
     flex-direction: column;
+}
+
+.value-wrapper {
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .form-element:hover {
