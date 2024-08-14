@@ -91,6 +91,10 @@ body {
     border-radius: 9px;
 }
 
+.task-link--hidden {
+    display: none;
+}
+
 .result-length {
     font-family: "Roboto-Regular", sans-serif;
     margin-left: 8px;

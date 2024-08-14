@@ -35,6 +35,14 @@ const showResult = (result, resultLength) => {
     document.getElementById("result-input").value = result;
 };
 
+const showTaskLink = () => {
+    removeClassFromElement("task-link", "task-link--hidden");
+};
+
+const hideTaskLink = () => {
+    addClassToElement("task-link", "task-link--hidden");
+};
+
 const getLanguage = () => {
     return document.getElementById("type-buttons-container").elements[
         "language"
@@ -146,8 +154,10 @@ const convertValue = async () => {
             showResult(result, result.length);
         } else {
             addClassToElement("name", "name--error");
+            addClassToElement("task-link", "name--error");
             setTimeout(() => {
                 removeClassFromElement("name", "name--error");
+                removeClassFromElement("task-link", "name--error");
             }, 700);
         }
     }

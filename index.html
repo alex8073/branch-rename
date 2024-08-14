@@ -30,6 +30,7 @@
                             class="form-element"
                             id="feature-radio"
                             checked="checked"
+                            onClick="showTaskLink();"
                     />
                     <label for="feature-radio" class="radio-label"
                     >feature</label
@@ -42,6 +43,7 @@
                             name="branchType"
                             id="hotfix-radio"
                             class="form-element"
+                            onClick="hideTaskLink();"
                     />
                     <label for="hotfix-radio" class="radio-label">hotfix</label>
                 </div>
@@ -130,7 +132,7 @@
     <div class="task-link-wrapper">
         <input
                 id="task-link"
-                placeholder="Ссылка на задачу"
+                placeholder="Дай мне ссылку на задачу..."
                 class="name task-link"
         />
     </div>
