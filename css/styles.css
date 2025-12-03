@@ -32,7 +32,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #b8c5fc 0%, #d1c5fd 100%);
+    background: linear-gradient(135deg, #d0f7fc 0%, #e6fbfe 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -40,7 +40,127 @@ body {
     padding: 24px;
     font-size: var(--text-base);
     color: var(--text);
+    transition: background 0.3s ease;
+    position: relative;
 }
+
+.theme-toggle {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.theme-toggle:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-icon {
+    position: absolute;
+    color: var(--text);
+    transition: opacity 0.2s ease;
+}
+
+.theme-icon-sun {
+    opacity: 1;
+}
+
+.theme-icon-moon {
+    opacity: 0;
+}
+
+body.theme-dark .theme-icon-sun {
+    opacity: 0;
+}
+
+body.theme-dark .theme-icon-moon {
+    opacity: 1;
+}
+
+html:not([class*="theme-"]),
+html.theme-light {
+    --primary: #06b6d4;
+    --primary-dark: #0891b2;
+    --primary-focus: rgba(6, 182, 212, 0.1);
+    --primary-shadow: rgba(6, 182, 212, 0.35);
+}
+
+html:not([class*="theme-"]) body,
+body:not([class*="theme-"]),
+body.theme-light {
+    background: linear-gradient(135deg, #d0f7fc 0%, #e6fbfe 100%);
+}
+
+html.theme-dark {
+    --primary: #58a6ff;
+    --primary-dark: #388bfd;
+    --primary-focus: rgba(88, 166, 255, 0.1);
+    --primary-shadow: rgba(88, 166, 255, 0.35);
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --text-hint: #6e7681;
+    --border: #30363d;
+    --border-hover: #484f58;
+    --bg-white: #161b22;
+    --bg-light: #21262d;
+    --bg-disabled: #0d1117;
+    --success: #3fb950;
+    --success-dark: #2ea043;
+    --error: #f85149;
+}
+
+html.theme-dark,
+body.theme-dark {
+    background: #0d1117;
+}
+
+body.theme-dark .container {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+body.theme-dark .theme-toggle {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border-color: var(--border);
+}
+
+body.theme-dark .theme-toggle:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body.theme-dark button:not(.copy-btn) {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
+}
+
+body.theme-dark button:not(.copy-btn):hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+}
+
+body.theme-dark .copy-btn {
+    box-shadow: 0 6px 20px rgba(63, 185, 80, 0.35);
+}
+
+body.theme-dark .copy-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(63, 185, 80, 0.5);
+}
+
+body.theme-dark .copy-btn:disabled {
+    box-shadow: none;
+}
+
 
 .container {
     background: var(--bg-white);
@@ -75,6 +195,7 @@ label {
 input[type="text"] {
     width: 100%;
     padding: 12px 16px;
+    background: var(--bg-white);
     border: 2px solid var(--border);
     border-radius: 8px;
     font-size: var(--text-base);
@@ -82,7 +203,7 @@ input[type="text"] {
     transition: all 0.2s ease;
 }
 
-input[type="text"]:hover:not(:disabled) {
+input[type="text"]:hover:not(:disabled):not(:focus) {
     border-color: var(--border-hover);
 }
 
@@ -90,6 +211,10 @@ input[type="text"]:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px var(--primary-focus);
+}
+
+input[type="text"]:focus:hover {
+    border-color: var(--primary);
 }
 
 input[type="text"]:disabled {
@@ -152,8 +277,41 @@ input[type="text"].error {
 input[type="radio"] {
     margin-right: 6px;
     cursor: pointer;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--bg-white);
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+input[type="radio"]:hover {
+    border-color: var(--border-hover);
+}
+
+input[type="radio"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+input[type="radio"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 8px;
+    height: 8px;
+    background-color: var(--bg-white);
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+input[type="radio"]:checked::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .radio-item label {
@@ -174,15 +332,11 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-button:hover:not(:disabled) {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--primary-shadow);
 }
 
-button:active:not(:disabled) {
-    transform: translateY(0);
+button:hover:not(:disabled) {
+    box-shadow: 0 6px 20px var(--primary-shadow);
 }
 
 button:disabled {
@@ -239,25 +393,31 @@ button:disabled {
     white-space: nowrap;
     flex-shrink: 0;
     width: 130px;
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.35);
 }
 
 .copy-btn:hover:not(:disabled) {
     background: var(--success-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.copy-btn:active:not(:disabled) {
-    transform: translateY(0);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.35);
 }
 
 .copy-btn.copied {
     background: var(--success-dark);
 }
 
+.copy-btn.error {
+    background: var(--error);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.35);
+}
+
+.copy-btn.error:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+}
+
 .copy-btn:disabled {
     background: var(--text-hint);
     opacity: 0.5;
+    box-shadow: none;
 }
 
 .length-info {
@@ -277,8 +437,17 @@ button:disabled {
 }
 
 @media (max-width: 640px) {
+    .theme-toggle {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
     .container {
         padding: 24px;
+        margin-top: 60px;
     }
 
     h1 {
