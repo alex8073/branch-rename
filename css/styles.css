@@ -32,7 +32,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, #b8c5fc 0%, #d1c5fd 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -216,7 +216,6 @@ button:disabled {
     background: var(--bg-white);
     border: 2px solid var(--primary);
     border-radius: 8px;
-    font-family: 'SF Mono', Monaco, Menlo, 'Courier New', monospace;
     font-size: var(--text-base);
     color: var(--text);
     font-weight: 500;
