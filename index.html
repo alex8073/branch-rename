@@ -1,211 +1,67 @@
+<!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <title>Magic</title>
-    <link rel="stylesheet" type="text/css" href="./css/styles.css"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Name Generator</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<script src="./js/functions.js"></script>
+
 <body>
-<audio src="./audio/apihost.ru_voice.mp3" id="sound"></audio>
-<div class="wrapper">
-    <img src="./img/Bitmap.png" class="bitmap" alt=""/>
-    <h1 class="title">Просто я очень ленив...</h1>
-    <form class="type-buttons-container" id="type-buttons-container">
-        <div class="container">
-            <div class="container--title">
-                Тип ветки:
-            </div>
-            <div class="container--values">
-                <div class="value-wrapper">
-                    <input
-                            type="radio"
-                            value="feature/"
-                            name="branchType"
-                            class="form-element"
-                            id="feature-radio"
-                            checked="checked"
-                            onClick="showTaskLink();"
-                    />
-                    <label for="feature-radio" class="radio-label"
-                    >feature</label
-                    >
-                </div>
-                <div class="value-wrapper">
-                    <input
-                            type="radio"
-                            value="hotfix/"
-                            name="branchType"
-                            id="hotfix-radio"
-                            class="form-element"
-                            onClick="hideTaskLink();"
-                    />
-                    <label for="hotfix-radio" class="radio-label">hotfix</label>
-                </div>
-                <!--                        <div class="value-wrapper">-->
-                <!--                            <input-->
-                <!--                                type="radio"-->
-                <!--                                value="task/"-->
-                <!--                                name="branchType"-->
-                <!--                                class="form-element"-->
-                <!--                                id="task-radio"-->
-                <!--                            />-->
-                <!--                            <label for="task-radio" class="radio-label"-->
-                <!--                                >task</label-->
-                <!--                            >-->
-                <!--                        </div>-->
-                <!--                        <div class="value-wrapper">-->
-                <!--                            <input-->
-                <!--                                type="radio"-->
-                <!--                                value="story/"-->
-                <!--                                name="branchType"-->
-                <!--                                class="form-element"-->
-                <!--                                id="story-radio"-->
-                <!--                            />-->
-                <!--                            <label for="story-radio" class="radio-label"-->
-                <!--                                >story</label-->
-                <!--                            >-->
-                <!--                        </div>-->
-                <!--                        <div class="value-wrapper">-->
-                <!--                            <input-->
-                <!--                                type="radio"-->
-                <!--                                value="global/"-->
-                <!--                                name="branchType"-->
-                <!--                                id="global-radio"-->
-                <!--                                class="form-element"-->
-                <!--                            />-->
-                <!--                            <label for="global-radio" class="radio-label">global</label>-->
-                <!--                        </div>-->
-            </div>
-        </div>
-        <div class="container">
-            <div class="container--title">
-                Язык вывода:
-            </div>
-            <div class="container--values">
-                <div class="value-wrapper">
-                    <input
-                            type="radio"
-                            value="default"
-                            name="language"
-                            checked="checked"
-                            id="default-radio"
-                            class="form-element"
-                    />
-                    <label for="default-radio" class="radio-label"
-                    >без изменений</label
-                    >
-                </div>
-                <div class="value-wrapper">
-                    <input
-                            type="radio"
-                            value="translit"
-                            name="language"
-                            id="translit-radio"
-                            class="form-element"
-                    />
-                    <label for="translit-radio" class="radio-label"
-                    >транслитерировать (ru -> en)</label
-                    >
+    <div class="container">
+        <h1>🎯 Branch Name Generator</h1>
+
+        <form id="branchForm">
+            <div class="section">
+                <div class="form-group">
+                    <label>Тип ветки:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="feature" name="branchType" value="feature" checked>
+                            <label for="feature">feature</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="hotfix" name="branchType" value="hotfix">
+                            <label for="hotfix">hotfix</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="value-wrapper">
-                    <input
-                            type="radio"
-                            value="translate"
-                            name="language"
-                            id="translate-radio"
-                            class="form-element"
-                    />
-                    <label for="translate-radio" class="radio-label"
-                    >перевести (ru -> en)</label
-                    >
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="task-link-wrapper">
-        <input
-                id="task-link"
-                placeholder="Дай мне ссылку на задачу..."
-                class="name task-link"
-        />
-    </div>
-    <div class="input-wrapper">
-        <input
-                id="name"
-                placeholder="Скорми мне название ветки..."
-                class="name"
-        />
-        <div
-                class="input-button noselect"
-                id="submit-button"
-                onClick="convertValue();"
-        >
-            Магия!
-        </div>
-    </div>
-    <div id="root">
-        <img
-                src="./img/1.gif"
-                id="magic-img-1"
-                class="magic-img--hidden"
-                width="350"
-                height="280"
-                alt=""
-        />
-        <img
-                src="./img/2.gif"
-                id="magic-img-2"
-                class="magic-img--hidden"
-                width="274"
-                height="252"
-                alt=""
-        />
-        <img
-                src="./img/3.gif"
-                id="magic-img-3"
-                width="350"
-                height="280"
-                class="magic-img--hidden"
-                alt=""
-        />
-        <div
-                id="result-wrapper"
-                class="result-wrapper result-wrapper--hidden"
-        >
-            <h2 class="result-title">
-                ...поэтому использую магию вне Хогвартса:
-            </h2>
-
-            <div class="result-input-wrapper">
-                <input
-                        type="text"
-                        class="result-input"
-                        disabled="disabled"
-                        id="result-input"
-                />
-                <div
-                        class="result-input-button"
-                        onClick="copyToClipboard();"
-                >
-                            <span id="copy-button" class="copy noselect">
-                                Копировать
-                            </span>
+                <div class="form-group">
+                    <label for="taskId">ID задачи:</label>
+                    <input type="text" id="taskId" placeholder="ABC-1234 или https://site.com/ABC-1234">
+                    <div class="error-message" id="taskIdEmptyError">Пожалуйста, заполните ID задачи</div>
+                    <div class="error-message" id="taskIdFormatError">Неверный формат ID (ожидается PROJECT-123)</div>
+                    <div class="hint">Можно вставить ID задачи или ссылку на задачу</div>
                 </div>
             </div>
 
-            <div class="container">
-                Длина ветки (до 40 символов):
-                <div id="result-length" class="result-length"></div>
+            <div class="section">
+                <div class="form-group">
+                    <label for="branchName">Название ветки:</label>
+                    <input type="text" id="branchName" placeholder="Введите название ветки...">
+                    <div class="error-message" id="branchNameEmptyError">Пожалуйста, заполните это поле</div>
+                    <div class="error-message" id="branchNameError">Название ветки не должно содержать русские символы
+                    </div>
+                </div>
             </div>
+
+            <button type="submit">✨ Сгенерировать</button>
+        </form>
+
+        <div class="result-container" id="resultContainer">
+            <div class="result-label">Результат:</div>
+            <div class="result-value">
+                <input type="text" class="result-input" id="resultInput" disabled>
+                <button type="button" class="copy-btn" id="copyBtn" disabled>Копировать</button>
+            </div>
+            <div class="length-info" id="lengthInfo"></div>
         </div>
     </div>
-</div>
+
+    <script src="js/functions.js"></script>
 </body>
+
 </html>

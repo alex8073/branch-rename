@@ -1,232 +1,152 @@
-const playAudio = () => {
-    const audio = document.getElementById("sound");
-    audio.play();
+// Кеширование элементов DOM
+const elements = {
+    form: document.getElementById('branchForm'),
+    taskId: document.getElementById('taskId'),
+    branchName: document.getElementById('branchName'),
+    resultInput: document.getElementById('resultInput'),
+    copyBtn: document.getElementById('copyBtn'),
+    lengthInfo: document.getElementById('lengthInfo'),
+    errors: {
+        taskIdEmpty: document.getElementById('taskIdEmptyError'),
+        taskIdFormat: document.getElementById('taskIdFormatError'),
+        branchNameEmpty: document.getElementById('branchNameEmptyError'),
+        branchNameRussian: document.getElementById('branchNameError')
+    }
 };
 
-const addClassToElement = (element, className) => {
-    document.getElementById(element).classList.add(className);
+// Утилиты для работы с ошибками
+const errorUtils = {
+    clear(input) {
+        input.classList.remove('error');
+        Object.values(elements.errors).forEach(error => error.classList.remove('show'));
+    },
+    show(input, errorElement) {
+        input.classList.add('error');
+        errorElement.classList.add('show');
+    }
 };
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const removeClassFromElement = (element, className) => {
-    document.getElementById(element).classList.remove(className);
+// Утилиты для валидации
+const validators = {
+    hasRussianChars: (str) => /[а-яА-ЯёЁ]/.test(str),
+    extractTaskId: (input) => {
+        if (!input) return '';
+        const match = input.match(/([A-Z]+-\d+)/i);
+        return match ? match[1].toUpperCase() : '';
+    },
+    normalizeBranchName: (name) => {
+        return name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+    }
 };
 
-const showImage = () => {
-    const imgNumber = getRandomInt(1, 3);
-    removeClassFromElement(`magic-img-${imgNumber}`, "magic-img--hidden");
-    addClassToElement(`magic-img-${imgNumber}`, "magic-img");
-    playAudio();
-    return imgNumber;
-};
-
-const hideImage = (imgNumber) => {
-    addClassToElement(`magic-img-${imgNumber}`, "magic-img--hidden");
-    removeClassFromElement(`magic-img-${imgNumber}`, "magic-img");
-};
-
-const showResult = (result, resultLength) => {
-    removeClassFromElement("result-wrapper", "result-wrapper--hidden");
-    document.getElementById("result-length").innerText = resultLength;
-    addClassToElement("result-length", resultLength <= 40 ? "valid" : "invalid");
-    document.getElementById("result-input").value = result;
-};
-
-const showTaskLink = () => {
-    removeClassFromElement("task-link", "task-link--hidden");
-};
-
-const hideTaskLink = () => {
-    addClassToElement("task-link", "task-link--hidden");
-};
-
-const getLanguage = () => {
-    return document.getElementById("type-buttons-container").elements[
-        "language"
-    ].value;
-};
-
-const sendRequest = async (url, data) => {
-    const response = await fetch(url, {
-        body: JSON.stringify(data),
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
+// Обработчик переключения типа ветки
+document.querySelectorAll('input[name="branchType"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        elements.taskId.disabled = e.target.value === 'hotfix';
+        errorUtils.clear(elements.taskId);
+        errorUtils.clear(elements.branchName);
     });
-    return response.json();
+});
+
+// Функция обновления длины результата
+const updateResultLength = () => {
+    const length = elements.resultInput.value.length;
+    const isValid = length <= 40;
+    elements.lengthInfo.className = `length-info ${isValid ? 'valid' : 'invalid'}`;
+    
+    if (isValid) {
+        elements.lengthInfo.textContent = `Длина: ${length} символов ✓`;
+    } else {
+        elements.lengthInfo.innerHTML = `Длина: ${length} символов ⚠<br>Превышает максимальную длину (40 символов)`;
+    }
 };
 
-const convertValue = async () => {
-    removeClassFromElement("result-length", "valid");
-    removeClassFromElement("result-length", "invalid");
-    const type = document.getElementById("type-buttons-container").elements[
-        "branchType"
-    ].value;
-    const originalName = document.getElementById("name").value;
-    const taskLink = document.getElementById("task-link").value;
-    const taskTitle = taskLink.split("/").pop();
+// Обработчики очистки ошибок при вводе
+elements.branchName.addEventListener('input', () => {
+    errorUtils.clear(elements.branchName);
+});
 
-    if (!document.getElementsByClassName("magic-img").length) {
-        if (originalName) {
-            addClassToElement("result-wrapper", "result-wrapper--hidden");
-            let id = "";
-            if (originalName.split(" ")[0].includes("-")) {
-                id = originalName.split(" ")[0];
-            }
-            let promise;
-            const img = showImage();
-            switch (getLanguage()) {
-                case "translit": {
-                    promise = new Promise(async (resolve, reject) => {
-                        const parsedName =
-                            rus2lat(id) +
-                            rus2lat(originalName.replace(id, ""))
-                                .replace(/[^A-Za-zа-яА-Я0-9ёЁ\s]/gi, "")
-                                .split(" ")
-                                .join("_");
-                        setTimeout(() => {
-                            return resolve(parsedName);
-                        }, 2000);
-                    });
-                    break;
-                }
-                case "translate": {
-                    const timer = new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            return resolve(true);
-                        }, 2000);
-                    });
-                    const name = originalName.replace(id, "");
-                    const response = await sendRequest(
-                        "https://dev-sc-api.ti-service.by/api/v1/translate",
-                        { data: name },
-                    );
-                    const { data } = response;
-                    promise = timer.then((result) => {
-                        console.log(result);
-                        if (data && result) {
-                            const parsedName =
-                                `${id ? id + "_" : id}` +
-                                data
-                                    .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                                    .split(" ")
-                                    .join("_");
-                            return parsedName;
-                        } else {
-                            addClassToElement("name", "name--error");
-                            setTimeout(() => {
-                                removeClassFromElement("name", "name--error");
-                            }, 700);
-                        }
-                    });
+elements.taskId.addEventListener('input', () => {
+    errorUtils.clear(elements.taskId);
+});
 
-                    break;
-                }
-                default: {
-                    promise = new Promise((resolve, reject) => {
-                        const parsedName =
-                            id +
-                            originalName
-                                .replace(id, "")
-                                .replace(/[^A-Za-zа-яА-Я0-9\s]/gi, "")
-                                .split(" ")
-                                .join("_");
-                        setTimeout(() => {
-                            return resolve(parsedName);
-                        }, 2000);
-                    });
-                    break;
-                }
-            }
-            const name = await promise;
-            hideImage(img);
-            let result = "";
-            if(type === "hotfix/") {
-                result = "feature/hotfix-" + name;
-            } else {
-                result = type + taskTitle + "-" + name;
-            }
-            showResult(result, result.length);
-        } else {
-            addClassToElement("name", "name--error");
-            addClassToElement("task-link", "name--error");
-            setTimeout(() => {
-                removeClassFromElement("name", "name--error");
-                removeClassFromElement("task-link", "name--error");
-            }, 700);
+// Обработчик изменения результата
+elements.resultInput.addEventListener('input', updateResultLength);
+
+// Обработчик отправки формы
+elements.form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const branchType = document.querySelector('input[name="branchType"]:checked').value;
+    const taskIdValue = elements.taskId.value.trim();
+    const branchNameValue = elements.branchName.value.trim();
+
+    // Очистка всех ошибок
+    errorUtils.clear(elements.taskId);
+    errorUtils.clear(elements.branchName);
+
+    // Валидация ID задачи для feature
+    if (branchType === 'feature') {
+        if (!taskIdValue) {
+            errorUtils.show(elements.taskId, elements.errors.taskIdEmpty);
+            return;
+        }
+
+        const extractedTaskId = validators.extractTaskId(taskIdValue);
+        if (!extractedTaskId) {
+            errorUtils.show(elements.taskId, elements.errors.taskIdFormat);
+            return;
         }
     }
-};
 
-const copyToClipboard = () => {
-    const input = document.getElementById("result-input");
-    input.setAttribute("readonly", "");
-    const el = document.createElement("textarea");
-    el.value = input.value;
-    el.style.position = "absolute";
-    el.style.left = "-9999px";
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
+    // Валидация названия ветки
+    if (!branchNameValue) {
+        errorUtils.show(elements.branchName, elements.errors.branchNameEmpty);
+        return;
+    }
 
-    removeClassFromElement("copy-button", "copy");
-    addClassToElement("copy-button", "copy--success");
+    if (validators.hasRussianChars(branchNameValue)) {
+        errorUtils.show(elements.branchName, elements.errors.branchNameRussian);
+        return;
+    }
+
+    // Генерация результата
+    const normalized = validators.normalizeBranchName(branchNameValue);
+    let result = '';
+
+    if (branchType === 'hotfix') {
+        result = `feature/hotfix-${normalized}`;
+    } else {
+        const taskId = validators.extractTaskId(taskIdValue);
+        result = `${branchType}/${taskId}-${normalized}`;
+    }
+
+    // Отображение результата
+    elements.resultInput.value = result;
+    elements.resultInput.disabled = false;
+    elements.copyBtn.disabled = false;
+
+    // Информация о длине
+    updateResultLength();
+});
+
+// Обработчик копирования
+elements.copyBtn.addEventListener('click', () => {
+    elements.resultInput.select();
+    document.execCommand('copy');
+
+    const originalText = elements.copyBtn.textContent;
+    elements.copyBtn.textContent = '✓';
+    elements.copyBtn.classList.add('copied');
 
     setTimeout(() => {
-        removeClassFromElement("copy-button", "copy--success");
-        addClassToElement("copy-button", "copy");
-    }, 3000);
-};
+        elements.copyBtn.textContent = originalText;
+        elements.copyBtn.classList.remove('copied');
+    }, 2000);
+});
 
-const rus2lat = (str) => {
-    var ru = {
-            а: "a",
-            б: "b",
-            в: "v",
-            г: "g",
-            д: "d",
-            е: "e",
-            ё: "e",
-            ж: "j",
-            з: "z",
-            и: "i",
-            к: "k",
-            л: "l",
-            м: "m",
-            н: "n",
-            о: "o",
-            п: "p",
-            р: "r",
-            с: "s",
-            т: "t",
-            у: "u",
-            ф: "f",
-            х: "h",
-            ц: "c",
-            ч: "ch",
-            ш: "sh",
-            щ: "shch",
-            ы: "y",
-            э: "e",
-            ю: "u",
-            я: "ya",
-        },
-        nStr = [];
-
-    str = str.replace(/[ъь]+/g, "").replace(/й/g, "i");
-
-    for (var i = 0; i < str.length; ++i) {
-        nStr.push(
-            ru[str[i]] ||
-                (ru[str[i].toLowerCase()] == undefined && str[i]) ||
-                ru[str[i].toLowerCase()].toUpperCase(),
-        );
-    }
-    return nStr.join("");
-};
